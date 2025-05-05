@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlavorQuest Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 16px;
+        }
+        .hero-section {
+            background-image: url('https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?cs=srgb&dl=chair-cutlery-diner-941861.jpg&fm=jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        .hero-section h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .hero-section p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .feedback-section {
+            padding: 40px 20px;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+        .feedback-section h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        .feedback-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 15px auto;
+            max-width: 600px;
+            text-align: left;
+        }
+        .feedback-card h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+        .feedback-card p {
+            margin: 0;
+            color: #555;
+            font-size: 14px;
+        }
+        .feedback-card .stars {
+            color: #FFD700;
+            margin-top: 5px;
+        }
+        .feedback-form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 60%;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .feedback-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .feedback-form input,
+        .feedback-form textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .feedback-form button {
+            background-color: #ff4500;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .feedback-form button:hover {
+            background-color: #ff6347;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">FlavorQuest</div>
+        <a href="manager-login.html">Manager Login</a>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <h1>Welcome to FlavorQuest</h1>
+        <p>Experience culinary excellence with our carefully crafted menu. Analyze trends and feedback to enhance your dining experience.</p>
+    </div>
+
+    <!-- Feedback Section -->
+    <div class="feedback-section">
+        <h2>Give Your Feedback</h2>
+
+        <!-- Demo Feedback -->
+        <div class="feedback-card">
+            <h3>John Doe <span style="font-size: 12px; color: #888;">(April 25, 2025)</span></h3>
+            <p>"The best dining experience I've ever had. The food was divine and the ambiance perfect!"</p>
+            <div class="stars">★★★★★</div>
+        </div>
+        <div class="feedback-card">
+            <h3>Emily Johnson <span style="font-size: 12px; color: #888;">(April 23, 2025)</span></h3>
+            <p>"Great service and delicious food. Will definitely visit again. Highly recommended!"</p>
+            <div class="stars">★★★★☆</div>
+        </div>
+
+        <!-- Feedback Form -->
+        <div class="feedback-form">
+            <form id="feedbackForm">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" placeholder="Enter your name" required>
+                <label for="feedback">Your Feedback</label>
+                <textarea id="feedback" rows="4" placeholder="Share your experience" required></textarea>
+                <button type="button" onclick="submitFeedback()">Submit</button>
+            </form>
+        </div>
+
+        <!-- Dynamic Customer Feedback -->
+        <div id="customerFeedback">
+            <!-- New customer feedback will be displayed here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 FlavorQuest. All rights reserved.</p>
+        <p>Email: info@flavorquest.com | Phone: (123) 456-7890</p>
+    </footer>
+
+    <script>
+        // Handle feedback submission
+        function submitFeedback() {
+            const name = document.getElementById('name').value;
+            const feedback = document.getElementById('feedback').value;
+
+            if (name && feedback) {
+                const customerFeedback = document.getElementById('customerFeedback');
+
+                // Create a new feedback card
+                const feedbackCard = document.createElement('div');
+                feedbackCard.classList.add('feedback-card');
+                feedbackCard.innerHTML = `
+                    <h3>${name}</h3>
+                    <p>${feedback}</p>
+                    <div class="stars">★★★★★</div>
+                `;
+                customerFeedback.appendChild(feedbackCard);
+
+                // Clear the form
+                document.getElementById('feedbackForm').reset();
+
+                alert('Thank you for your feedback!');
+            } else {
+                alert('Please fill out all fields.');
+            }
+        }
+    </script>
+</body>
+</html>

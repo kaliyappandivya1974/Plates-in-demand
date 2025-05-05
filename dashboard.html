@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FlavorQuest Manager Dashboard</title>
+  <style>
+    /* Your existing styles remain unchanged */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      display: flex;
+      height: 100vh;
+      transition: background 0.3s ease;
+    }
+
+    body.dark-mode {
+      background: #1a1a1a;
+      color: #ffffff;
+    }
+
+    .dark-mode .content {
+      background: #2d2d2d;
+    }
+
+    .dark-mode table {
+      border-color: #555;
+    }
+
+    .dark-mode th {
+      background-color: #444;
+      color: white;
+    }
+
+    .dark-mode td {
+      background-color: #333;
+      color: white;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sidebar h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .sidebar a:hover {
+      background-color: #555;
+    }
+
+    .content {
+      flex: 1;
+      padding: 20px;
+      background-color: #f8f9fa;
+      overflow-y: auto;
+    }
+
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .settings-container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .dark-mode .settings-container {
+      background: #333;
+      color: white;
+      box-shadow: 0 2px 10px rgba(255,255,255,0.1);
+    }
+
+    .settings-section {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .dark-mode .settings-section {
+      border-bottom-color: #555;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin: 15px 0;
+    }
+
+    input[type="text"], input[type="email"], input[type="password"] {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: white;
+      color: #333;
+    }
+
+    .dark-mode input[type="text"],
+    .dark-mode input[type="email"],
+    .dark-mode input[type="password"] {
+      background: #444;
+      border-color: #666;
+      color: white;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .primary-btn {
+      background: #2d89ef;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .secondary-btn {
+      background: #f0f0f0;
+      color: #333;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .dark-mode .secondary-btn {
+      background: #666;
+      color: white;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #2d89ef;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    .theme-switcher {
+      margin-top: 10px;
+    }
+
+    .theme-btn {
+      background: #f0f0f0;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .dark-mode .theme-btn {
+      background: #666;
+      color: white;
+    }
+
+    .account-email {
+      margin-top: 20px;
+      color: #666;
+      font-size: 0.9em;
+    }
+
+    .dark-mode .account-email {
+      color: #ccc;
+    }
+
+    h1, h2 {
+      color: #333;
+    }
+
+    .dark-mode h1,
+    .dark-mode h2 {
+      color: white;
+    }
+
+    .logout-link {
+      margin-top: auto;
+      color: #ff4d4d;
+      font-weight: bold;
+    }
+
+    .logout-link:hover {
+      background-color: #800000;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div>
+      <h2>Navigation</h2>
+      <a href="#" onclick="showSection('dashboard')">Dashboard</a>
+      <a href="#" onclick="showSection('staff')">Staff</a>
+      <a href="#" onclick="showSection('reports')">Reports</a>
+      <a href="#" onclick="showSection('orders')">Orders</a>
+      <a href="#" onclick="showSection('settings')">Settings</a>
+    </div>
+    <a href="#" onclick="logout()" class="logout-link">Logout</a>
+  </div>
+
+  <!-- Content Area -->
+  <div class="content" id="main-content">
+    <h1>Dashboard</h1>
+    <iframe
+      src="https://us1.ca.analytics.ibm.com/bi/?perspective=dashboard&amp;pathRef=.my_folders%2Fsunday%2Bnight&amp;closeWindowOnLastView=true&amp;ui_appbar=false&amp;ui_navbar=false&amp;shareMode=embedded&amp;action=view&amp;mode=dashboard"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <script>
+    function showSection(sectionId) {
+      const mainContent = document.getElementById('main-content');
+      mainContent.innerHTML = '';
+
+      switch (sectionId) {
+        case 'dashboard':
+          mainContent.innerHTML = `
+            <h1>Dashboard</h1>
+            <iframe
+              src="https://us1.ca.analytics.ibm.com/bi/?perspective=dashboard&amp;pathRef=.my_folders%2Fsunday%2Bnight&amp;closeWindowOnLastView=true&amp;ui_appbar=false&amp;ui_navbar=false&amp;shareMode=embedded&amp;action=view&amp;mode=dashboard"
+              allowfullscreen>
+            </iframe>
+          `;
+          break;
+        case 'staff':
+          mainContent.innerHTML = `
+            <h1>Staff Management</h1>
+            <table>
+              <tr><th>Name</th><th>Role</th><th>Department</th><th>Status</th><th>Email</th></tr>
+              <tr><td>John Doe</td><td>Manager</td><td>Management</td><td>Active</td><td>john.doe@flavorquest.com</td></tr>
+              <tr><td>Lisa Smith</td><td>Head Chef</td><td>Kitchen</td><td>Active</td><td>lisa.smith@flavorquest.com</td></tr>
+              <tr><td>Michael Johnson</td><td>Sous Chef</td><td>Kitchen</td><td>On Leave</td><td>michael.johnson@flavorquest.com</td></tr>
+            </table>
+          `;
+          break;
+        case 'reports':
+          mainContent.innerHTML = `
+            <h1>Reports</h1>
+            <table>
+              <tr><th>Report Name</th><th>Details</th><th>Generated On</th><th>Status</th></tr>
+              <tr><td>Sales Summary</td><td>Total sales for the week</td><td>2025-04-25</td><td>Completed</td></tr>
+              <tr><td>Staff Hours</td><td>Weekly staff attendance</td><td>2025-04-25</td><td>Completed</td></tr>
+            </table>
+          `;
+          break;
+        case 'orders':
+          mainContent.innerHTML = `
+            <h1>Orders</h1>
+            <table>
+              <tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th></tr>
+              <tr><td>ORD-001</td><td>John Smith</td><td>3</td><td>$42.50</td><td>Completed</td><td>2025-04-26</td></tr>
+              <tr><td>ORD-002</td><td>Sarah Johnson</td><td>2</td><td>$25.99</td><td>In Progress</td><td>2025-04-26</td></tr>
+            </table>
+          `;
+          break;
+        case 'settings':
+          mainContent.innerHTML = `
+            <div class="settings-container">
+              <div class="settings-section">
+                <h2>Account</h2>
+                <div class="input-group">
+                  <input type="text" value="DIVVA K">
+                  <div class="button-group">
+                    <button class="primary-btn" onclick="saveSettings()">Save Changes</button>
+                    <button class="secondary-btn" onclick="resetSettings()">Cancel</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="settings-section">
+                <h2>Preferences</h2>
+                <div class="input-group">
+                  <span>Email Notifications</span>
+                  <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="settings-section">
+                <h2>Dark Mode</h2>
+                <div class="theme-switcher">
+                  <button class="theme-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+                </div>
+              </div>
+
+              <div class="account-email">
+                <strong>Email:</strong> team7@gmail.com
+              </div>
+            </div>
+          `;
+          break;
+        default:
+          mainContent.innerHTML = `<h1>404 - Section Not Found</h1>`;
+          break;
+      }
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    }
+
+    function saveSettings() {
+      alert('Settings saved successfully!');
+    }
+
+    function resetSettings() {
+      if(confirm('Are you sure you want to discard changes?')) {
+        showSection('settings');
+      }
+    }
+
+    function logout() {
+      if (confirm('Are you sure you want to log out?')) {
+        // Clear any session or local data if needed
+        alert('Logged out successfully!');
+        window.location.href = 'login.html'; // Update with your actual login page
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if(localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Login Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?cs=srgb&dl=chair-cutlery-diner-941861.jpg&fm=jpg'); /* Replace with your background image */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-form {
+            width: 300px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.85); /* Semi-transparent background for contrast */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .login-form h1 {
+            margin-bottom: 20px;
+        }
+        .login-form input {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .login-form button {
+            padding: 10px 20px;
+            background-color: #ff4500;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-form button:hover {
+            background-color: #ff6347;
+        }
+        .forgot-password {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #555;
+            font-size: 14px;
+        }
+        .forgot-password:hover {
+            color: #ff4500;
+        }
+        .contact-section {
+            width: 300px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.85); /* Semi-transparent background for details */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            color: #333;
+        }
+        .contact-section h2 {
+            margin-bottom: 15px;
+        }
+        .contact-section p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Form -->
+    <div class="login-form">
+        <h1>Manager Login Portal</h1>
+        <input type="email" placeholder="Email" value="admin@flavorquest.com">
+        <input type="password" placeholder="Password">
+        <a href="forgot-password.html" class="forgot-password">Forgot Password?</a>
+        <button id="loginBtn">Login</button>
+    </div>
+
+    <!-- Contact Details -->
+    <div class="contact-section">
+        <h2>Contact Details</h2>
+        <p>Email: info@flavorquest.com</p>
+        <p>Phone: (123) 456-7890</p>
+        <h2>Hours</h2>
+        <p>Monday - Friday: 9am - 5pm</p>
+        <p>Saturday: 10am - 3pm</p>
+        <p>Sunday: Closed</p>
+    </div>
+
+    <script>
+        // Login button functionality
+        document.getElementById('loginBtn').addEventListener('click', function () {
+            const email = "admin@flavorquest.com";
+            const password = "team7";
+
+            // Simple demo validation
+            const enteredEmail = document.querySelector('input[type="email"]').value;
+            const enteredPassword = document.querySelector('input[type="password"]').value;
+
+            if (enteredEmail === email && enteredPassword === password) {
+                alert("Login successful!");
+                window.location.href = 'dashboard.html'; // Redirect to the dashboard
+            } else {
+                alert("Invalid email or password.");
+            }
+        });
+    </script>
+</body>
+</html>
